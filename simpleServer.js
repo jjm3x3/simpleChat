@@ -1,13 +1,3 @@
-// const net = require('net');
-
-// server = net.createServer();
-// server.listen({port: 9001}, () => {
-// 	console.log('someone Connected');
-// });
-// console.log(server.address());
-
-// while(true) {
-// };
 
 const net = require('net');
 
