@@ -16,7 +16,15 @@ var server = net.createServer((socket) => {
 	clients.push(socket);
 	console.log(clients.length + ' clients connected');
 
-	socket.write('welcome to the server');
+	socket.write('welcome to the server\n');
+
+	numberOfOtherUsers = clients.length - 1
+	if (numberOfOtherUsers === 1){
+		socket.write('there is ' + numberOfOtherUsers + " other user on the server" );
+	} else {
+		socket.write('there are ' + numberOfOtherUsers + " other users on the server" );
+	}
+
 }).on('error', (err) => {
   // handle errors here
   throw err;
