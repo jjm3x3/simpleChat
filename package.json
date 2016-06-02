@@ -1,0 +1,14 @@
+{
+  "name": "simple-chat",
+  "version": "1.0.0",
+  "description": "is a simple cli chat tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chat"
+  ],
+  "author": "jmeixner, thunderousWizard",
+  "license": "ISC"
+}
