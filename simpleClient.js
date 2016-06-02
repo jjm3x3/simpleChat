@@ -15,7 +15,7 @@ const client = net.connect({port: 9001}, () => {
 });
 client.on('data', (data) => {
   console.log(data.toString());
-  client.write('message Recived\n');
+  // client.write('message Recived\n');
   // client.end();
 });
 client.on('end', () => {
