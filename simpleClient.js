@@ -8,7 +8,7 @@
 const net = require('net');
 const readline = require('readline');
 
-const client = net.connect({port: 9001}, () => {
+const client = net.connect({port: 9001, host: process.argv[2]}, () => {
   // 'connect' listener
   console.log('connected to server!');
   client.write('clientConnected!\n');
