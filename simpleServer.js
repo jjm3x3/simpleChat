@@ -13,6 +13,9 @@ var server = net.createServer((socket) => {
 			clients[i].write(data.toString());
 		}
 	});
+	socket.on('error', (err) => {
+		console.log('client err: ' + err);
+	});
 	clients.push(socket);
 	console.log(clients.length + ' clients connected');
 
