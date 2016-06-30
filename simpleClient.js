@@ -11,9 +11,10 @@ const readline = require('readline');
 const client = net.connect({port: 9001, host: process.argv[2]}, () => {
   // 'connect' listener
   console.log('connected to server!');
-  client.write('clientConnected!\n');
+  client.write('clientConnected!');
 });
 client.on('data', (data) => {
+  // console.log(rl);
   console.log(data.toString());
   // client.write('message Recived\n');
   // client.end();
