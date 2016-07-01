@@ -53,7 +53,15 @@ rl.on('line', (line) => {
 
   c = binSqr(e,n,message);
   console.log("here is the cryptic message: " + c);
-  console.log("uncryptoed message: " + binSqr(d,n,c));
+  unc = binSqr(d,n,c);
+  console.log("uncryptoed message: " + unc);
+  hexString = unc.toString(16);
+  finalMessage = "";
+  for ( i = 0; i < hexString.length; i += 2){
+    finalMessage += String.fromCharCode(parseInt("0x" + hexString.charAt(i) + hexString.charAt(i+1)));
+    console.log("finalMessage sofar: " + finalMessage);
+  }
+  console.log(finalMessage);
   var cryptoMessage = message ^ e;
 
 	client.write(cryptoMessage.toString());
@@ -75,7 +83,7 @@ function binSqr(e,n,m){
     // console.log("removed portion: " + someNum);
     e = e-someNum;
 
-    console.log("here is k: " + k);
+    // console.log("here is k: " + k);
     result = result * k;
     result = result % n;
 
