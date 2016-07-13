@@ -45,9 +45,20 @@ rl.on('line', (line) => {
   q = 7919
   n = p*q
   t = (p-1) * (q -1);
+  guess = 19259;
+
+  gcd = 0;
+  while (gcd !== 1){
+    gcd = eclidAlg(t,guess);
+    console.log("here is the gcd of (t,guess): " + gcd);
+    guess += 2;
+  }
+  console.log("here is our e: " + guess);
+
+
   // set e = relativly prime number to t
   // invoves doing prime factorization
-  e = 17  // this makes our d wrong is in tearms of 17
+  e = 17  // this makes our d wrong because is in tearms of 17
   // figue out a way to come up with d
   d = 10513241
 
@@ -67,6 +78,24 @@ rl.on('line', (line) => {
 	client.write(cryptoMessage.toString());
 	rl.prompt();
 });
+
+function eclidAlg(t,n){
+
+  var i;
+  var x = 0;
+  for ( i = 0 ; x <= t; ++i) {
+    x = n * (1+i);
+  }
+  multiple = n * (i-1);
+  newMultiple = t - multiple
+  // console.log(t + " = " + (i-1) + " * " + n + " + " + newMultiple);
+
+  if (newMultiple === 0) return n;
+  else
+    return eclidAlg(n,newMultiple);
+
+
+}
 
 function binSqr(e,n,m){
    var result = m; // might not always be mod n
