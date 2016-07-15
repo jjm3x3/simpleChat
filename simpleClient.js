@@ -65,19 +65,24 @@ rl.on('line', (line) => {
   c = binSqr(e,n,message);
   console.log("here is the cryptic message: " + c);
   unc = binSqr(d,n,c);
+
+  numberToString(unc);
+
+	client.write(cryptoMessage.toString());
+	rl.prompt();
+});
+
+function numberToString(int unc){
   console.log("uncryptoed message: " + unc);
   hexString = unc.toString(16);
   finalMessage = "";
   for ( i = 0; i < hexString.length; i += 2){
     finalMessage += String.fromCharCode(parseInt("0x" + hexString.charAt(i) + hexString.charAt(i+1)));
-    console.log("finalMessage sofar: " + finalMessage);
+    // console.log("finalMessage sofar: " + finalMessage);
   }
-  console.log(finalMessage);
-  var cryptoMessage = message ^ e;
-
-	client.write(cryptoMessage.toString());
-	rl.prompt();
-});
+  // console.log(finalMessage);
+  return finalMessage;
+}
 
 function eclidAlg(t,n){
 
@@ -97,6 +102,7 @@ function eclidAlg(t,n){
 
 }
 
+// raises m^e nod n
 function binSqr(e,n,m){
    var result = m; // might not always be mod n
    while(e>1){    
