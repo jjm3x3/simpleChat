@@ -42,11 +42,12 @@ rl.on('line', (line) => {
   t = (p-1) * (q -1);
 
   console.log("here is our n: " + n);
-  e = getAnE(n);
+  console.log("here is our t: " + t);
+  e = getAnE(t);
   console.log("our e: " + e);
-  d = extendedEuclidAlg(e,n);
-  console.log("our d:" + d);
-  console.log("That's a " + d + "!");
+  d = extendedEuclidAlg(e,t);
+  console.log("our d: " + d);
+
   // e = 17  // this makes our d wrong because is in tearms of 17
   // // figue out a way to come up with d
   // d = 10513241
