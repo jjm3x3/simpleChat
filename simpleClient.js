@@ -45,7 +45,7 @@ rl.on('line', (line) => {
   console.log("here is our t: " + t);
   e = getAnE(t);
   console.log("our e: " + e);
-  console.log("27 and 392 give this many:" + findInverse(27, 392));
+  // console.log("27 and 392 give this many:" + findInverse(27, 392));
   d = findInverse(e,t);
   console.log("our d: " + d);
 
@@ -111,16 +111,17 @@ function numberToString(unc){
 
 // a is small b is large
 function findInverse(a, b){
-
+  // console.log("startingwith a: " + a + "\nand b: " + b);
   var q = [];
   var composite = [a];
   
   p = a;
-  t = b;
+  var t = b;
   while( t != 0){
     r = t % p;
     qi = (t - r)/p;
     q.push(qi);
+    // console.log(t + " = " + p + " * " + qi + " + " + r);
     t = p;
     p = r;
   }
@@ -131,8 +132,9 @@ function findInverse(a, b){
   for(i = 0; i < q.length-3; i++){
     composite.push(result);
     result = result * -q[i+1] + composite[i];
-  //   console.log("some intermediate val of result: " + result);
-  // }
+    // console.log("some intermediate val of result: " + result);
+    // console.log("with composite looks like: " + composite);
+  }
 
   result = (result/a)%b;
   if(result<0){
