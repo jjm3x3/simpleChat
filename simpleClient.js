@@ -45,8 +45,8 @@ rl.on('line', (line) => {
   console.log("here is our t: " + t);
   e = getAnE(t);
   console.log("our e: " + e);
-  console.log("27 and 392 give this many:" + extendedEuclidAlg(27, 392));
-  d = extendedEuclidAlg(e,t);
+  console.log("27 and 392 give this many:" + findInverse(27, 392));
+  d = findInverse(e,t);
   console.log("our d: " + d);
 
   // e = 17  // this makes our d wrong because is in tearms of 17
@@ -110,7 +110,7 @@ function numberToString(unc){
 }
 
 // a is small b is large
-function extendedEuclidAlg(a, b){
+function findInverse(a, b){
 
   var q = [];
   var composite = [a];
@@ -124,15 +124,15 @@ function extendedEuclidAlg(a, b){
     t = p;
     p = r;
   }
-  console.log("Here is q: " + q);
+  // console.log("Here is q: " + q);
   
   var result = -q[0]*a;
 
   for(i = 0; i < q.length-3; i++){
     composite.push(result);
     result = result * -q[i+1] + composite[i];
-    console.log("some intermediate val of result: " + result);
-  }
+  //   console.log("some intermediate val of result: " + result);
+  // }
 
   result = (result/a)%b;
   if(result<0){
