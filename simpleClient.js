@@ -55,9 +55,7 @@ rl.on('line', (line) => {
     }
   }
 
-
-  // set e = relativly prime number to t
-  // invoves doing prime factorization
+console.log("That's a " + extendedEuclidAlg(27,392) + "!");
   e = 17  // this makes our d wrong because is in tearms of 17
   // figue out a way to come up with d
   d = 10513241
@@ -99,22 +97,40 @@ function numberToString(unc){
   return finalMessage;
 }
 
+function extendedEuclidAlg(t, n){
+
+  var bigTuna = t
+  var p = n; 
+  var q = [];
+  var quad = [bigTuna];
+  while( n != 0){
+    r1 = n % t;
+    // r.push(r1);
+    q1 = (n - r1)/t;
+    q.push(q1);
+    n = t;
+    t = r1;
+  }
+  
+  var bingo = -q[0]*bigTuna;
+
+  for(i = 0; i < q.length-3; i++){
+    quad.push(bingo);
+    bingo = bingo * -q[i+1] + quad[i];
+    console.log("and " + q + " was his nameo");
+  }
+
+ bingo = (bingo/bigTuna)%p;
+ if(bingo<0){
+  bingo = p+bingo;
+}
+return bingo
+  // console.log("q: " + q);
+  // console.log("p: " + p);
+  // console.log("r: " + r);
+}
+
 function euclidAlg(t,n){
-
-  // var q = [];
-  // var r = [];
-
-  // r1 = t % n;
-  // r.push(r1);
-  // q1 = (t - r1)/n;
-  // q.push(q1);
-
-  // t = n;
-  // n = r1;
-
-
-
-
   var i;
   var x = 0;
   for ( i = 0 ; x <= t; ++i) {
@@ -127,7 +143,6 @@ function euclidAlg(t,n){
   if (newMultiple === 0) return n;
   else
     return euclidAlg(n,newMultiple);
-
 
 }
 
