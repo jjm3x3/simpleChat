@@ -45,6 +45,7 @@ rl.on('line', (line) => {
   console.log("here is our t: " + t);
   e = getAnE(t);
   console.log("our e: " + e);
+  console.log("27 and 392 give this many:" + extendedEuclidAlg(27, 392));
   d = extendedEuclidAlg(e,t);
   console.log("our d: " + d);
 
@@ -108,39 +109,40 @@ function numberToString(unc){
   return finalMessage;
 }
 
-function extendedEuclidAlg(t, n){
+// a is small b is large
+function extendedEuclidAlg(a, b){
 
-  var bigTuna = t
-  var p = n; 
   var q = [];
-  var quad = [bigTuna];
-  while( n != 0){
-    r1 = n % t;
-    // r.push(r1);
-    q1 = (n - r1)/t;
-    q.push(q1);
-    n = t;
-    t = r1;
-  }
+  var composite = [a];
   
-  var bingo = -q[0]*bigTuna;
+  p = a;
+  t = b;
+  while( t != 0){
+    r = t % p;
+    qi = (t - r)/p;
+    q.push(qi);
+    t = p;
+    p = r;
+  }
+  console.log("Here is q: " + q);
+  
+  var result = -q[0]*a;
 
   for(i = 0; i < q.length-3; i++){
-    quad.push(bingo);
-    bingo = bingo * -q[i+1] + quad[i];
-    // console.log("and " + q + " was his nameo");
+    composite.push(result);
+    result = result * -q[i+1] + composite[i];
+    console.log("some intermediate val of result: " + result);
   }
 
- bingo = (bingo/bigTuna)%p;
- if(bingo<0){
-  bingo = p+bingo;
-}
-return bingo
-  // console.log("q: " + q);
-  // console.log("p: " + p);
-  // console.log("r: " + r);
+  result = (result/a)%b;
+  if(result<0){
+    result = b+result;
+  }
+  return result
+
 }
 
+// t is big n is small
 function euclidAlg(t,n){
   var i;
   var x = 0;
