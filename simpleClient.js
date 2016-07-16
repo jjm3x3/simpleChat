@@ -34,26 +34,23 @@ rl.prompt();
 
 rl.on('line', (line) => {
   console.log(line);
-  var decmalString = "";
-  for(i = 0; i< line.length; ++i ){
-    decmalString += line.charCodeAt(i).toString(16);
-  }
-  var message = parseInt("0x" + decmalString);
-  console.log(message);
+  var message = stringToNumber(line);
 
   p = 2053
   q = 7919
   n = p*q
   t = (p-1) * (q -1);
-  guess = 19259;
 
-  gcd = 0;
-  while (gcd !== 1){
-    gcd = eclidAlg(t,guess);
-    console.log("here is the gcd of (t,guess): " + gcd);
-    guess += 2;
+  e = makeAnE(n);
+  console.log("here is an e:" + e);
+
+  gcd = euclidAlg(t,e);
+  console.log("gcd of " + t + " and " + e + ": " + gcd);
+  while (gcd != 1){
+    e = e / gcd;
+    gcd = euclidAlg(t,e);
+    console.log("gcd of " + t + " and " + e + ": " + gcd);
   }
-  console.log("here is our e: " + guess);
 
 
   // set e = relativly prime number to t
@@ -68,11 +65,26 @@ rl.on('line', (line) => {
 
   numberToString(unc);
 
-	client.write(cryptoMessage.toString());
+	client.write(c.toString());
 	rl.prompt();
 });
 
-function numberToString(int unc){
+function makeAnE(n){
+  var leng = n.toString(2).length
+  console.log(leng)
+  return Math.floor(Math.random() * (n - leng) + leng);
+}
+
+function stringToNumber(message){
+  var decmalString = "";
+  for(i = 0; i< message.length; ++i ){
+    decmalString += message.charCodeAt(i).toString(16);
+  }
+  var result = parseInt("0x" + decmalString);
+  console.log(result); 
+}
+
+function numberToString(unc){
   console.log("uncryptoed message: " + unc);
   hexString = unc.toString(16);
   finalMessage = "";
@@ -84,7 +96,21 @@ function numberToString(int unc){
   return finalMessage;
 }
 
-function eclidAlg(t,n){
+function euclidAlg(t,n){
+
+  // var q = [];
+  // var r = [];
+
+  // r1 = t % n;
+  // r.push(r1);
+  // q1 = (t - r1)/n;
+  // q.push(q1);
+
+  // t = n;
+  // n = r1;
+
+
+
 
   var i;
   var x = 0;
@@ -97,7 +123,7 @@ function eclidAlg(t,n){
 
   if (newMultiple === 0) return n;
   else
-    return eclidAlg(n,newMultiple);
+    return euclidAlg(n,newMultiple);
 
 
 }
