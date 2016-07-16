@@ -33,47 +33,56 @@ rl.setPrompt('OHHI> ');
 rl.prompt();
 
 rl.on('line', (line) => {
-  console.log(line);
+  console.log("my input: " + line);
   var message = stringToNumber(line);
-
+  console.log("message in number form: " + message);
   p = 2053
   q = 7919
   n = p*q
   t = (p-1) * (q -1);
 
-  e = makeAnE(n);
-  console.log("here is an e:" + e);
-
-  gcd = euclidAlg(t,e);
-  console.log("gcd of " + t + " and " + e + ": " + gcd);
-  while (gcd != 1){
-    e = e / gcd;
-    gcd = euclidAlg(t,e);
-    console.log("gcd of " + t + " and " + e + ": " + gcd);
-    if (e <= n.toString(2).lenght){
-      e = makeAnE(n);
-    }
-  }
-
-console.log("That's a " + extendedEuclidAlg(27,392) + "!");
-  e = 17  // this makes our d wrong because is in tearms of 17
-  // figue out a way to come up with d
-  d = 10513241
+  console.log("here is our n: " + n);
+  e = getAnE(n);
+  console.log("our e: " + e);
+  d = extendedEuclidAlg(e,n);
+  console.log("our d:" + d);
+  console.log("That's a " + d + "!");
+  // e = 17  // this makes our d wrong because is in tearms of 17
+  // // figue out a way to come up with d
+  // d = 10513241
 
   c = binSqr(e,n,message);
   console.log("here is the cryptic message: " + c);
   unc = binSqr(d,n,c);
+  console.log("uncryptoed message: " + unc);
 
-  numberToString(unc);
+  console.log(numberToString(unc));
 
 	client.write(c.toString());
 	rl.prompt();
 });
 
-function makeAnE(n){
-  var leng = n.toString(2).length
-  console.log(leng)
-  return Math.floor(Math.random() * (n - leng) + leng);
+function getAnE(t){
+  e = makeAnE(t);
+  // console.log("here is an e:" + e);
+
+  gcd = euclidAlg(t,e);
+  // console.log("gcd of " + t + " and " + e + ": " + gcd);
+  while (gcd != 1){
+    e = e / gcd;
+    gcd = euclidAlg(t,e);
+    // console.log("gcd of " + t + " and " + e + ": " + gcd);
+    if (e <= n.toString(2).lenght){
+      e = makeAnE(t);
+    }
+  }
+  return e;
+}
+
+function makeAnE(t){
+  var leng = t.toString(2).length
+  // console.log("t's length in makeAndE: " + leng)
+  return Math.floor(Math.random() * (t - leng) + leng);
 }
 
 function stringToNumber(message){
@@ -82,11 +91,12 @@ function stringToNumber(message){
     decmalString += message.charCodeAt(i).toString(16);
   }
   var result = parseInt("0x" + decmalString);
-  console.log(result); 
+  // console.log("heres the result of stringToNumebr: " + result);
+  return result; 
 }
 
 function numberToString(unc){
-  console.log("uncryptoed message: " + unc);
+  
   hexString = unc.toString(16);
   finalMessage = "";
   for ( i = 0; i < hexString.length; i += 2){
@@ -117,7 +127,7 @@ function extendedEuclidAlg(t, n){
   for(i = 0; i < q.length-3; i++){
     quad.push(bingo);
     bingo = bingo * -q[i+1] + quad[i];
-    console.log("and " + q + " was his nameo");
+    // console.log("and " + q + " was his nameo");
   }
 
  bingo = (bingo/bigTuna)%p;
