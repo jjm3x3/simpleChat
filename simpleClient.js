@@ -50,6 +50,9 @@ rl.on('line', (line) => {
     e = e / gcd;
     gcd = euclidAlg(t,e);
     console.log("gcd of " + t + " and " + e + ": " + gcd);
+    if (e <= n.toString(2).lenght){
+      e = makeAnE(n);
+    }
   }
 
 
