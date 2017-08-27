@@ -33,32 +33,50 @@ rl.setPrompt('OHHI> ');
 rl.prompt();
 
 rl.on('line', (line) => {
-  console.log("my input: " + line);
-  var message = stringToNumber(line);
-  console.log("message in number form: " + message);
-  p = 2053
-  q = 7919
-  n = p*q
-  t = (p-1) * (q -1);
+    console.log("my input: " + line);
+    var parts = [];
+    for(var i = 0; i < line.length/3; ++i) {
+        var segment = line.slice(i*3,(i+1)*3);
+        parts.push(segment);
+    }
+    console.log("what are the segments: ", parts);
+    parts = parts.map(function(part) {
+        return stringToNumber(part);
+    })
+    console.log("what are the segments (after encoding): ", parts);
+    var message = stringToNumber(line);
+    console.log("message in number form: " + message);
+    p = 2053
+    q = 7919
+    n = p*q
+    t = (p-1) * (q -1);
 
-  console.log("here is our n: " + n);
-  console.log("here is our t: " + t);
-  e = getAnE(t);
-  console.log("our e: " + e);
-  // console.log("27 and 392 give this many:" + findInverse(27, 392));
-  d = findInverse(e,t);
-  console.log("our d: " + d);
+    console.log("here is our n: " + n);
+    console.log("here is our t: " + t);
+    e = getAnE(t);
+    console.log("our e: " + e);
+    // console.log("27 and 392 give this many:" + findInverse(27, 392));
+    d = findInverse(e,t);
+    console.log("our d: " + d);
+    
+    // e = 17  // this makes our d wrong because is in tearms of 17
+    // // figue out a way to come up with d
+    // d = 10513241
 
-  // e = 17  // this makes our d wrong because is in tearms of 17
-  // // figue out a way to come up with d
-  // d = 10513241
+    start = new Date();
+    var encryptedParts = []
+    for(var i = 0; i < parts.length; i++) {
+        encryptedParts[i] = binSqr(e,n,parts[i])
+    }
+    console.log("Here are the encrypted parts: ", encryptedParts)
+    c = /*memEffMod(message,e,n)*/ binSqr(e,n,message);
+    end = new Date()
+    console.log("How long did that take: " + (end - start).toString() + ", start: " +  start + " , end: " + end);
+    console.log("here is the cryptic message: " + c);
+    unc = binSqr(d,n,c);
+    console.log("uncryptoed message: " + unc);
 
-  c = binSqr(e,n,message);
-  console.log("here is the cryptic message: " + c);
-  unc = binSqr(d,n,c);
-  console.log("uncryptoed message: " + unc);
-
-  console.log(numberToString(unc));
+    console.log(numberToString(unc));
 
 	client.write(c.toString());
 	rl.prompt();
@@ -191,7 +209,7 @@ function binSqr(e,n,m){
 
 // rasies b^e mod m
 function memEffMod(b,e,m) {
-    var c;
+    var c = 1;
     for(var i = 0; i < e; i++) {
         c = (c*b)% m;
     }
