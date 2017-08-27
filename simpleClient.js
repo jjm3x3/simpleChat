@@ -72,11 +72,11 @@ function getAnE(t){
   // console.log("gcd of " + t + " and " + e + ": " + gcd);
   while (gcd != 1){
     e = e / gcd;
+    // if (e <= n.toString(2).length){
+    //   e = makeAnE(t);
+    // }
     gcd = euclidAlg(t,e);
     // console.log("gcd of " + t + " and " + e + ": " + gcd);
-    if (e <= n.toString(2).lenght){
-      e = makeAnE(t);
-    }
   }
   return e;
 }
