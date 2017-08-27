@@ -189,4 +189,12 @@ function binSqr(e,n,m){
   return result;
 }
 
+// rasies b^e mod m
+function memEffMod(b,e,m) {
+    var c;
+    for(var i = 0; i < e; i++) {
+        c = (c*b)% m;
+    }
+    return c
+}
 
