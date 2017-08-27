@@ -70,11 +70,12 @@ rl.on('line', (line) => {
     }
     console.log("Here are the encrypted parts: ", encryptedParts)
     encryptedParts = encryptedParts.map(function(ep) {
-        if(ep / 10000000 < 1) {
-            return "0" + ep.toString();
-        } else {
-            return ep.toString();
+        var padded = ep.toString();
+        for(var i = ep.toString().length; i < 8; i++) {
+            padded = "0" + padded
         }
+        console.log("what does padded look like: ", padded);
+        return padded;
     });
     var secretMessage = encryptedParts.join("");
     console.log("Here are the encrypted parts (after normaization): ", secretMessage)
@@ -82,10 +83,29 @@ rl.on('line', (line) => {
     end = new Date()
     console.log("How long did that take: " + (end - start).toString() + ", start: " +  start + " , end: " + end);
     console.log("here is the cryptic message: " + c);
+    var encryptedNumbers = []
+    for(var i = 0; i < secretMessage.length/8; i++) {
+        encryptedNumbers.push(secretMessage.slice(i*8,(i+1)*8));
+    }
+    console.log("here are the numstrings: ", encryptedNumbers)
+    encryptedNumbers = encryptedNumbers.map(function(strNum) {
+        return parseInt(strNum);
+    });
+    console.log("what are the parts: ", encryptedNumbers)
+    var unEncryptedNums = encryptedNumbers.map(function(en) {
+        return binSqr(d,n,en);
+    });
+    console.log("here are unencryptedNumbers: ", unEncryptedNums);
+    var stringParts = unEncryptedNums.map(function(num) {
+        return numberToString(num);
+    });
+
     unc = binSqr(d,n,c);
     console.log("uncryptoed message: " + unc);
 
     console.log(numberToString(unc));
+
+    console.log("Here is the real message: ", stringParts.join(""));
 
 	client.write(c.toString());
 	rl.prompt();
