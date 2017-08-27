@@ -69,6 +69,15 @@ rl.on('line', (line) => {
         encryptedParts[i] = binSqr(e,n,parts[i])
     }
     console.log("Here are the encrypted parts: ", encryptedParts)
+    encryptedParts = encryptedParts.map(function(ep) {
+        if(ep / 10000000 < 1) {
+            return "0" + ep.toString();
+        } else {
+            return ep.toString();
+        }
+    });
+    var secretMessage = encryptedParts.join("");
+    console.log("Here are the encrypted parts (after normaization): ", secretMessage)
     c = /*memEffMod(message,e,n)*/ binSqr(e,n,message);
     end = new Date()
     console.log("How long did that take: " + (end - start).toString() + ", start: " +  start + " , end: " + end);
