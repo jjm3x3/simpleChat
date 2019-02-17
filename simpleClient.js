@@ -44,8 +44,6 @@ rl.on('line', (line) => {
         return stringToNumber(part);
     })
     console.log("what are the segments (after encoding): ", parts);
-    var message = stringToNumber(line);
-    console.log("message in number form: " + message);
     p = 2053
     q = 7919
     n = p*q
@@ -68,46 +66,39 @@ rl.on('line', (line) => {
     for(var i = 0; i < parts.length; i++) {
         encryptedParts[i] = binSqr(e,n,parts[i])
     }
-    console.log("Here are the encrypted parts: ", encryptedParts)
+    // console.log("Here are the encrypted parts: ", encryptedParts)
     encryptedParts = encryptedParts.map(function(ep) {
         var padded = ep.toString();
         for(var i = ep.toString().length; i < 8; i++) {
             padded = "0" + padded
         }
-        console.log("what does padded look like: ", padded);
+        // console.log("what does padded look like: ", padded);
         return padded;
     });
     var secretMessage = encryptedParts.join("");
     console.log("Here are the encrypted parts (after normaization): ", secretMessage)
-    c = /*memEffMod(message,e,n)*/ binSqr(e,n,message);
     end = new Date()
     console.log("How long did that take: " + (end - start).toString() + ", start: " +  start + " , end: " + end);
-    console.log("here is the cryptic message: " + c);
     var encryptedNumbers = []
     for(var i = 0; i < secretMessage.length/8; i++) {
         encryptedNumbers.push(secretMessage.slice(i*8,(i+1)*8));
     }
-    console.log("here are the numstrings: ", encryptedNumbers)
+    // console.log("here are the numstrings: ", encryptedNumbers)
     encryptedNumbers = encryptedNumbers.map(function(strNum) {
         return parseInt(strNum);
     });
-    console.log("what are the parts: ", encryptedNumbers)
+    // console.log("what are the parts: ", encryptedNumbers)
     var unEncryptedNums = encryptedNumbers.map(function(en) {
         return binSqr(d,n,en);
     });
-    console.log("here are unencryptedNumbers: ", unEncryptedNums);
+    // console.log("here are unencryptedNumbers: ", unEncryptedNums);
     var stringParts = unEncryptedNums.map(function(num) {
         return numberToString(num);
     });
 
-    unc = binSqr(d,n,c);
-    console.log("uncryptoed message: " + unc);
-
-    console.log(numberToString(unc));
-
     console.log("Here is the real message: ", stringParts.join(""));
 
-	client.write(c.toString());
+	client.write(secretMessage);
 	rl.prompt();
 });
 
